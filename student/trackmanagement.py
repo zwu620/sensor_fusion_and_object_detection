@@ -53,15 +53,15 @@ class Track:
         self.x = np.matrix(np.zeros((params.dim_state,1)))
         self.P = np.matrix(np.zeros((params.dim_state,params.dim_state)))
         
-        z = np.ones((4,1)) # initialized measurement vector to be all 1s.
+        z = np.matrix(np.ones((4,1))) # initialized measurement vector to be all 1s.
         z[0:3] = meas.z # read in meas
-        z = meas.sensor.sens_to_veh * z # convert to vehicle coordinates
-        self.x[0:3] = z[0:3] # update position part with meas
+        z_veh = meas.sensor.sens_to_veh * z # convert to vehicle coordinates
+        self.x[0:3] = z_veh[0:3] # update position part with meas
         
         self.P [0:3, 0:3] = M_rot * meas.R * M_rot.transpose()
         self.P [3:params.dim_state, 3:params.dim_state] =np.diag([params.sigma_p44*2, params.sigma_p55**2, params.sigma_p66**2])
         
-        self.state = 'Initialized'
+        self.state = 'initialized'
         self.score = 1/params.window
         
         ############
@@ -128,7 +128,7 @@ class Trackmanagement:
             y_var = track.P[1,1]
             print("track to check")
             print(track)
-            if (track.score <= params.delete_threshold and tranck.state == "confirmed") or (x_var > Pmax or y_var > Pmax):
+            if (track.score <= params.delete_threshold and track.state == "confirmed") or (x_var >= Pmax or y_var >= Pmax):
                 self.delete_track(track)     
           
         ############
@@ -160,11 +160,11 @@ class Trackmanagement:
         # - set track state to 'tentative' or 'confirmed'
         ############
         
-        self.score += 1/params.window
+        track.score += (1/params.window)
         if track.score >= params.confirmed_threshold:
-            self.state = 'confirmed'
+            track.state = 'confirmed'
         else:
-            self.state = 'tentative'
+            track.state = 'tentative'
 
         #pass
         
