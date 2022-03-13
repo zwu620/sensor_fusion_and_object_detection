@@ -76,10 +76,10 @@ class Filter:
         F = self.F()
         F_t = F.transpose()
         Q = self.Q()
-        print(F)
-        print(track.P)
-        print(F_t)
-        print(Q)
+        #print(F)
+        #print(track.P)
+        #print(F_t)
+        #print(Q)
         x = F * track.x 
         P = F * track.P * F_t + Q
         

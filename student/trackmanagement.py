@@ -63,7 +63,7 @@ class Track:
         
         self.state = 'initialized'
         self.score = 1/params.window
-        
+        self.id = id
         ############
         # END student code
         ############ 
