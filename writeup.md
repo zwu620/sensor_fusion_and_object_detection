@@ -23,7 +23,7 @@ Another challenge is to delete track. I initially didn't get the condition right
 helped me to correct my code.
 
 ### 2. Do you see any benefits in camera-lidar fusion compared to lidar-only tracking (in theory and in your concrete results)? 
-Intuitively, redudency on available sensors and measurements should help on the predict accuracy and reliability. However, based on my project results, the camera-lida (Step 4) RMSEs are slightly higher than the lidar-only tracking (Step 3). This can potentially be improved by finetuning parameters (e.g., delete_threshold). 
+Intuitively, redudency on available sensors and measurements should help on the predict accuracy and reliability. However, based on my project results, the camera-lida (Step 4) RMSEs are the same as the lidar-only tracking (Step 3). This can potentially be improved by finetuning parameters (e.g., delete_threshold). 
 Also, I noticed some non-vehicle objects were fasely detected. The camera detection part should probably be better trained or calibrated.
 
 ### 3. Which challenges will a sensor fusion system face in real-life scenarios? Did you see any of these challenges in the project?
